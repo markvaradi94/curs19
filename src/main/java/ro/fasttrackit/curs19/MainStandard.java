@@ -1,5 +1,6 @@
 package ro.fasttrackit.curs19;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -11,9 +12,14 @@ public class MainStandard {
 
         arrayVerification(elem -> elem % 2 == 0);
         System.out.println();
-        arrayVerification(elem -> elem % 2 == 1);
+        arrayVerification(elem -> elem % 2 != 0);
         System.out.println();
         arrayVerification(elem -> elem < 3);
+        System.out.println();
+        consumeArray(System.out::println);
+        System.out.println();
+        consumeArray(elem -> System.out.println("$" + elem));
+
     }
 
     public static void arrayOperation(Function<Integer, String> transformer) {
@@ -23,12 +29,19 @@ public class MainStandard {
         }
     }
 
-    public static void arrayVerification(Predicate<Integer> predicate) {
+    public static void arrayVerification(Predicate<Integer> filter) {
         int[] ints = {1, 2, 3, 4, 5};
         for (int elem : ints) {
-            if (predicate.test(elem)) {
+            if (filter.test(elem)) {
                 System.out.println(elem);
             }
+        }
+    }
+
+    public static void consumeArray(Consumer<Integer> consumer) {
+        int[] ints = {1, 2, 3, 4, 5};
+        for (int elem : ints) {
+            consumer.accept(elem);
         }
     }
 }
